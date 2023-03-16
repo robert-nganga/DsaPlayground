@@ -1,4 +1,4 @@
-import java.util.Stack
+import java.util.*
 
 fun main(){
 //    val arr = intArrayOf(-1,-1,0,0,-1,-1)
@@ -10,8 +10,46 @@ fun main(){
 //    println(reverseList(list))
 
     println()
+    val list = TreeNode(`val` = 4)
+    val list1 = TreeNode(`val` = 5)
+    list1.left = TreeNode(`val` = 1)
+    list1.right = TreeNode(`val` = 0)
+    list.left = list1
+    list.right = TreeNode(`val` = 6)
+    println(levelOrder(list))
+    val arr = intArrayOf(2,6,5,7)
+}
 
-
+/*
+Question 8
+Given the root of a binary tree,
+return the level order traversal of its nodes' values. (i.e., from left to right, level by level).
+ */
+class TreeNode(var `val`: Int) {
+     var left: TreeNode? = null
+     var right: TreeNode? = null
+}
+fun levelOrder(root: TreeNode?): List<List<Int>> {
+    val result = mutableListOf<List<Int>>()
+    if(root == null) return result
+    val queue : Queue<TreeNode> = LinkedList()
+    queue.add(root)
+    while (queue.isNotEmpty()){
+        val level = queue.size
+        val temp = mutableListOf<Int>()
+        for (i in 0 until level){
+            val current = queue.remove()
+            temp.add(current.`val`)
+            if (current.left != null){
+                queue.add(current.left)
+            }
+            if (current.right != null){
+                queue.add(current.right)
+            }
+        }
+        result.add(temp)
+    }
+    return result
 }
 
 /*
